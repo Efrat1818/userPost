@@ -1,0 +1,11 @@
+
+.title{
+    text-align: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:#ef9a9a;
+  }
+  .textField{
+display: flex;
+gap:20px;
+flex-direction: column;
+  }

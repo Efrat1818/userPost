@@ -1,0 +1,9 @@
+.selected-row{
+    background-color:cadetblue;
+}
+
+.table-row{
+    &:hover{
+        background-color:azure;
+    }
+}
