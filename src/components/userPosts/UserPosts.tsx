@@ -24,13 +24,15 @@ const UserPosts: React.FC<UserPostsProps> = ({ selectedUserId,selectedUserName }
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-
+  // useEffect to fetch posts when selectedUserId changes
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
       setError(null);
       try {
+        // Fetch posts by the selected user's ID
         const fetchedPosts = await fetchPostsByUserId(selectedUserId as number);
+        // Update the posts state with the fetched data
         setPosts(fetchedPosts);
       } catch (error) {
         setError(error as Error);
@@ -38,19 +40,24 @@ const UserPosts: React.FC<UserPostsProps> = ({ selectedUserId,selectedUserName }
         setIsLoading(false);
       }
     };
-
+    // Check if a user is selected before fetching posts
     if (selectedUserId) {
       fetchPosts();
     } else {
+      // If no user is selected, reset the posts array
       setPosts([]);
     }
   }, [selectedUserId]);
 
+  // Function to handle post creation
   const handleCreatePost = async (postData: Post) => {
     try {
+      // Create a new post using the createPost service function
       const newPost = await createPost(postData);
-      setPosts([...posts, newPost]); // Add the new post to the list
+      // Update the posts state with the new post
+      setPosts([...posts, newPost]); 
     } catch (error: any) {
+      // Handle errors during post creation
       console.error('Error creating post:', error.message);
     }
   };

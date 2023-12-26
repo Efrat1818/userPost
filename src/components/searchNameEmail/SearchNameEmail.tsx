@@ -7,8 +7,9 @@ interface SearchNameEmailProps {
 }
 
 const SearchNameEmail: React.FC<SearchNameEmailProps> = ({ setSearchTerm }) => {
-
+  // Event handler for handling changes in the search input
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Update the search term state based on the input value
     setSearchTerm(event.target.value);
   };
 

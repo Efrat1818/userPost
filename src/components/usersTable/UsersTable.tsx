@@ -14,9 +14,10 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { User } from '../../services/types';
 import './UsersTable.css';
-
+// Type for supported columns in sorting
 type columnsSupported = 'name' | 'email'
 
+// Props for the UsersTable component
 interface UsersTableProps {
   users: User[];
   setUsers: React.Dispatch<React.SetStateAction<User[]>>;
@@ -26,34 +27,40 @@ interface UsersTableProps {
   setSelectedUserId: React.Dispatch<React.SetStateAction<number | null>>,
   setSelectedUserName :React.Dispatch<React.SetStateAction<string | null>>
 }
-
+// UsersTable component
 const UsersTable: React.FC<UsersTableProps> = ({ users, setUsers, isLoading, error, selectedUserId, setSelectedUserId ,setSelectedUserName}) => {
+  // State to manage sorting order for each column
   const [sortOrder, setSortOrder] = useState({
     name: 'asc',
     email: 'asc',
   });
-//this sort function 
+  // Function to handle sorting when a column header is clicked
   const handleSort = (column: columnsSupported) => {
+    // Clone the current sorting order state to avoid mutation
     const newSortOrder = { ...sortOrder };
+    // Toggle the sorting order for the clicked column
     newSortOrder[column] = newSortOrder[column] === 'asc' ? 'desc' : 'asc';
-
+    // Clone the current users array to avoid mutation
     const sortedUsers = [...users].sort((a, b) => {
+      // Extract the values of the clicked column for comparison
       const aValue = a[column].toLowerCase();
       const bValue = b[column].toLowerCase();
 
+      // Compare values based on the sorting order
       if (newSortOrder[column] === 'asc') {
-        //-1 in ascending order i want 
-        return aValue.localeCompare(bValue);
+      // In ascending order, use localeCompare for string comparison       
+       return aValue.localeCompare(bValue);
       } else {
-        //1 
+      // In descending order, reverse the localeCompare result
         return bValue.localeCompare(aValue);
       }
     });
-
+    // Update the users state with the sorted array
     setUsers(sortedUsers);
+    // Update the sorting order state for the clicked column
     setSortOrder(newSortOrder);
   };
-
+  // Function to render a table cell with optional sorting button
   const renderCell = (title: string, sortPropertyName?: columnsSupported) => {
     return <TableCell>
       {title}

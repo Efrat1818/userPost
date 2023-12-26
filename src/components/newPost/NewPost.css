@@ -5,7 +5,7 @@
     color:#ef9a9a;
   }
   .textField{
-display: flex;
-gap:20px;
-flex-direction: column;
+    display: flex;
+    gap:20px;
+    flex-direction: column;
   }
